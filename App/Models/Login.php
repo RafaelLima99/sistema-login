@@ -10,29 +10,32 @@ class Login extends Model
     private $email;
     private $senha;
 
-    public function validaLogin()
+    public function login()
     {
-        //seleciona o usuario que tenha o mesmo email do informado
-        $query = "SELECT * FROM usuario WHERE email = :email";
+        //verfica se a senha existe
+        //se existir armaena o nome e o logado = true
+
+        $query = "SELECT * FROM usuario WHERE email = :email AND senha = :senha";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':senha', $this->senha);
         $stmt->execute();
 
         if($stmt->rowCount()){
-            $result = $stmt->fetch();
-
-            if($result['senha'] === $this->senha){
-                $_SESSION['usuario'] = $result['id'];
-                return true;
-            }
+            $usuario = $stmt->fetch();
+            $this->id = $usuario['id'];
+            $this->nome = $usuario['nome'];
         }
 
-        throw new \Exception('Login Invalido');
-        
-        
-        //verificar senha
+        return $stmt->rowCount();
 
-    }
+        
+           
+        }
+
+        
+        
+        
 
     //seters
     public function setNome($nome)
@@ -50,6 +53,9 @@ class Login extends Model
     }
 
     //geters
+    public function  getId(){
+        return $this->id;
+    }
     public function getNome(){
         return $this->nome;
     }
