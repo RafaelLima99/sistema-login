@@ -20,6 +20,18 @@ class Route extends Bootstrap {
 			'action' => 'login'
 		);
 
+		$routes['dashboard'] = array(
+			'route' => '/dashboard',
+			'controller' => 'dashboardController',
+			'action' => 'index'
+		);
+
+		$routes['sair'] = array(
+			'route' => '/sair',
+			'controller' => 'loginController',
+			'action' => 'sair'
+		);
+
 		$this->setRoutes($routes);
 	}
 
