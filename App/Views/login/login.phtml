@@ -36,6 +36,16 @@
               <div id="opcao" >
                 <p><a href="">Esqueceu a senha?</a></p>
               </div>
+              <?php if(isset($_GET['logado'] ) &&  $_GET['logado'] == 'false'){ ?>
+              <div class="text text-danger">
+                E-mail e senha inválidos(s)
+              </div>
+              <?php } ?>
+                 
+                
+                  
+              
+              
               <button type="submit" class="btn btn-dark " id="btn-entrar">Entrar</button>
             </form>
         </div>
