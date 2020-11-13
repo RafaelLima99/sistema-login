@@ -12,31 +12,25 @@ class Login extends Model
 
     public function login()
     {
-        //verfica se a senha existe
-        //se existir armaena o nome e o logado = true
-
-        $query = "SELECT * FROM usuario WHERE email = :email AND senha = :senha";
+        //verifica se o email do usuário existe no banco
+        $query = "SELECT * FROM usuario WHERE email = :email";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':email', $this->email);
-        $stmt->bindValue(':senha', $this->senha);
         $stmt->execute();
 
+        //se exisitr
+        //verifica se a senha digitada é a mesma que condiz com o hash da senha que está no banco
         if($stmt->rowCount()){
             $usuario = $stmt->fetch();
-            $this->id = $usuario['id'];
-            $this->nome = $usuario['nome'];
+            if(password_verify($this->senha, $usuario['senha'])){
+                //insere o id e nome do usuário nos atribustos
+                $this->id   = $usuario['id'];
+                $this->nome = $usuario['nome'];
+                return true;
+            }
         }
-
-        return $stmt->rowCount();
-
-        
-           
-        }
-
-        
-        
-        
-
+        return false;
+    }
     //seters
     public function setNome($nome)
     {
@@ -53,19 +47,12 @@ class Login extends Model
     }
 
     //geters
-    public function  getId(){
+    public function  getId()
+    {
         return $this->id;
     }
-    public function getNome(){
+    public function getNome()
+    {
         return $this->nome;
     }
-
-    public function getEmail(){
-        return $this->nome;
-    }
-
-    public function getSenha(){
-        return $this->nome;
-    }
-    
 }

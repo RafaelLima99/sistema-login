@@ -6,23 +6,22 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
-class DashboardController extends Action {
-
-	public function index() {
+class DashboardController extends Action
+{
+    public function index()
+    {
         session_start();
         $this->verificaLogin();
 		$this->render('dashboard');
 		 
     }
     
-    public function verificaLogin(){
-        
+    //verifica se está logado
+    public function verificaLogin()
+    {
         if(!$_SESSION['logado']){
             header('Location: /login?logado=false');
+            return true;
         }
     }
-
 }
-
-
-?>
