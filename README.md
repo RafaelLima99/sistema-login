@@ -24,7 +24,7 @@ git clone https://github.com/RafaelLima99/sistema-login.git
 
 # Criar banco de dados no PHPMyAdmin com o nome sistema-login
 
-# Importar o arquivo db-login.sql para dentro do banco criado
+# Importar o arquivo sistema-login.sql para dentro do banco criado
 
 # executar o projeto
 php -S localhost:8080
